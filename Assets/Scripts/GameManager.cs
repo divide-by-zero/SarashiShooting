@@ -16,8 +16,9 @@ public class GameManager : MonoBehaviour
     private Subject<Vector3> _axisSubject = new Subject<Vector3>();
     private Subject<float> _rotateSubject = new Subject<float>();
 
-    private static GameManager _instance;
+    private int _bulletNum = 1;
 
+    private static GameManager _instance;
 
     public static GameManager Instance
     {
@@ -62,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            _clickSubject.OnNext(1);
+            _clickSubject.OnNext(_bulletNum);
         }
 
         var subV = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
