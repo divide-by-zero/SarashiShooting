@@ -37,7 +37,7 @@ namespace PlayerSpace
         {
             var transform1 = transform;
             var rotation = transform1.rotation;
-            var subBullet = Instantiate(bullet, transform1.position + rotation * Vector3.forward,
+            var subBullet = Instantiate(bullet, transform1.position + rotation * Vector3.forward * 1.5f,
                 rotation);
             subBullet.emission.SetBurst(0, new ParticleSystem.Burst(0, n));
             Destroy(subBullet.gameObject, BulletLifeTime);

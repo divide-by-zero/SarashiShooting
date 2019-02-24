@@ -5,6 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Async;
 
+
 public class GameManager : MonoBehaviour
 {
     private const float MoveSpeed = 20;
