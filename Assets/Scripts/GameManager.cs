@@ -7,10 +7,15 @@ using UniRx.Async;
 
 public class GameManager : MonoBehaviour
 {
+    private const float MoveSpeed = 20;
+
     public static float Dt;
     public ReactiveProperty<int> clickProperty = new ReactiveProperty<int>(0);
 
     private Subject<int> _clickSubject = new Subject<int>();
+    private Subject<Vector3> _axisSubject = new Subject<Vector3>();
+    private Subject<float> _rotateSubject = new Subject<float>();
+
     private static GameManager _instance;
 
 
@@ -38,6 +43,16 @@ public class GameManager : MonoBehaviour
         get { return _clickSubject; }
     }
 
+    public IObservable<Vector3> IsMoving
+    {
+        get { return _axisSubject; }
+    }
+
+    public IObservable<float> IsRotating
+    {
+        get { return _rotateSubject; }
+    }
+
     private void Update()
     {
         Dt = Time.deltaTime;
@@ -48,6 +63,19 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             _clickSubject.OnNext(1);
+        }
+
+        var subV = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        if (subV.magnitude > 0)
+        {
+            var speedSub = MoveSpeed * Dt;
+            _axisSubject.OnNext(subV * speedSub);
+        }
+
+        var mouseInputX = Input.GetAxis("Mouse X");
+        if (Mathf.Abs(mouseInputX) > 0)
+        {
+            _rotateSubject.OnNext(mouseInputX);
         }
     }
 }
