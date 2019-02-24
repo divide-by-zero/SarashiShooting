@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MovingEnemy
   - ShootingEnemy
+  - Item
   layers:
   - Default
   - TransparentFX

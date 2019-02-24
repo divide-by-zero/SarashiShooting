@@ -44,4 +44,13 @@ public class PlayerController : MonoBehaviour
         subBullet.emission.SetBurst(0, new ParticleSystem.Burst(0, n));
         Destroy(subBullet.gameObject, BulletLifeTime);
     }
+
+    private void OnCollisionEnter(Collision ot)
+    {
+        if (ot.gameObject.CompareTag("Item"))
+        {
+            Destroy(ot.gameObject);
+            bulletNum++;
+        }
+    }
 }
