@@ -18,7 +18,7 @@ public class EnemyGenerator : MonoBehaviour
         for (var i = 0; i < EnemyNum; i++)
         {
             var roll = Random.Range(1, 3);
-            var subPosition = new Vector3(Random.Range(-_width, _width), 3, Random.Range(-_width, _width));
+            var subPosition = new Vector3(Random.Range(-_width, _width), 10, Random.Range(-_width, _width));
 
             switch (roll)
             {

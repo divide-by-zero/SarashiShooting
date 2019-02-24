@@ -389,6 +389,8 @@
         <e p="Scripts" t="Include">
           <e p="BulletCollisionContoroller.cs" t="Include" />
           <e p="EnemyGenerator.cs" t="Include" />
+          <e p="EnemyMoveScript.cs" t="Include" />
+          <e p="EnemyShotScript.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="ItemGenerator.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
