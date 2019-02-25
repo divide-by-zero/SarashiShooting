@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public static int shootingEnemyNum = 0;
     public static int enemyNum = 80;
 
+    public static GameObject enemyBullet;
+
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -52,6 +54,11 @@ public class GameManager : MonoBehaviour
         get { return _rotateSubject; }
     }
 
+    private void Awake()
+    {
+        enemyBullet = (GameObject) Resources.Load("EnemyBullet");
+    }
+
     private void Update()
     {
         Dt = Time.deltaTime;
@@ -81,6 +88,6 @@ public class GameManager : MonoBehaviour
     public float IntervalCulc()
     {
         // ReSharper disable once PossibleLossOfFraction
-        return 300 / shootingEnemyNum;
+        return 400 / shootingEnemyNum;
     }
 }

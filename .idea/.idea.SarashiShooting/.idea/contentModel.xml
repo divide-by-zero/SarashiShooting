@@ -388,6 +388,7 @@
         </e>
         <e p="Scripts" t="Include">
           <e p="BulletCollisionContoroller.cs" t="Include" />
+          <e p="EnemyBulletCollision.cs" t="Include" />
           <e p="EnemyGenerator.cs" t="Include" />
           <e p="EnemyMoveScript.cs" t="Include" />
           <e p="EnemyShotScript.cs" t="Include" />
