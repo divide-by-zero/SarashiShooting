@@ -10,13 +10,17 @@ public class EnemyMoveScript : MonoBehaviour
     private const float Speed = 0.05f;
     private const float DamageC = 500;
     private int _movingEnemyHP;
+    private Renderer _enemyRenderer;
 
     private void Awake()
     {
         _variation = Random.Range(0, 256);
 
-        GetComponent<Renderer>().material.color = new Color32(255, (byte) (256 - _variation), 0, 128);
-        _movingEnemyHP = (int) ((_variation / 50) + 1);
+        _enemyRenderer = GetComponent<Renderer>();
+        _enemyRenderer.material.color = new Color32(255, (byte) (256 - _variation), 0, 128);
+        _movingEnemyHP = (int) ((256 - _variation) / 64 + 1);
+        //_movingEnemyHP = (int) ((100 / (_variation)) + 1);
+        Debug.Log(_movingEnemyHP);
     }
 
     private void Update()
@@ -27,7 +31,6 @@ public class EnemyMoveScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision ot)
     {
-        Debug.Log(ot.gameObject.tag);
         if (ot.gameObject.CompareTag("Player"))
         {
             PlayerInstance._playerHP -= (int) (DamageC / _variation);
@@ -40,7 +43,7 @@ public class EnemyMoveScript : MonoBehaviour
         if (ot.gameObject.CompareTag("PlayerBullet"))
         {
             _movingEnemyHP--;
-            Debug.Log(_movingEnemyHP);
+            _enemyRenderer.material.color = new Color32(255, (byte) (256 - 1 / (_movingEnemyHP - 1) / 100), 0, 128);
             if (_movingEnemyHP < 1)
             {
                 enemyNum--;
