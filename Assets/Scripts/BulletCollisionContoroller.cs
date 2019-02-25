@@ -9,6 +9,14 @@ public class BulletCollisionContoroller : MonoBehaviour
     {
         if (ot.CompareTag("MovingEnemy"))
         {
+            enemyNum--;
+            Destroy(ot.gameObject);
+        }
+
+        if (ot.CompareTag("ShootingEnemy"))
+        {
+            shootingEnemyNum--;
+            enemyNum--;
             Destroy(ot.gameObject);
         }
 

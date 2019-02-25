@@ -1,21 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 
 public class EnemyGenerator : MonoBehaviour
 {
-    private const int EnemyNum = 80;
-
-    [SerializeField] private GameObject _MovingEnemy;
-    [SerializeField] private GameObject _ShootingEnemy;
-    [SerializeField] private Renderer _renderer;
+    [SerializeField] private GameObject movingEnemy;
+    [SerializeField] private GameObject shootingEnemy;
+    [SerializeField] private new Renderer renderer;
 
     private float _width;
 
     private void Awake()
     {
-        _width = _renderer.bounds.size.x / 2;
-        for (var i = 0; i < EnemyNum; i++)
+        _width = renderer.bounds.size.x / 2;
+        for (var i = 0; i < enemyNum; i++)
         {
             var roll = Random.Range(1, 3);
             var subPosition = new Vector3(Random.Range(-_width, _width), 10, Random.Range(-_width, _width));
@@ -23,10 +22,11 @@ public class EnemyGenerator : MonoBehaviour
             switch (roll)
             {
                 case 1:
-                    Instantiate(_MovingEnemy, subPosition, Quaternion.identity);
+                    Instantiate(movingEnemy, subPosition, Quaternion.identity);
                     break;
                 case 2:
-                    Instantiate(_ShootingEnemy, subPosition, Quaternion.identity);
+                    shootingEnemyNum++;
+                    Instantiate(shootingEnemy, subPosition, Quaternion.identity);
                     break;
                 default:
                     break;

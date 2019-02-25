@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     private Subject<float> _rotateSubject = new Subject<float>();
 
     public static int bulletNum = 1;
+    public static int shootingEnemyNum = 0;
+    public static int enemyNum = 80;
 
     private static GameManager _instance;
 
@@ -74,5 +76,11 @@ public class GameManager : MonoBehaviour
         {
             _rotateSubject.OnNext(mouseInputX);
         }
+    }
+
+    public float IntervalCulc()
+    {
+        // ReSharper disable once PossibleLossOfFraction
+        return 300 / shootingEnemyNum;
     }
 }

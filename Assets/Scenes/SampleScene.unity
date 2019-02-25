@@ -156,11 +156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaea02f9b10da455b9f53fc04604f358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MovingEnemy: {fileID: 2132816680759403192, guid: b284229d508124c21a01794196e171f0,
+  movingEnemy: {fileID: 2132816680759403192, guid: b284229d508124c21a01794196e171f0,
     type: 3}
-  _ShootingEnemy: {fileID: 900462274707656351, guid: 2105dfe615dab4bac987efa86ea2a9e5,
+  shootingEnemy: {fileID: 900462274707656351, guid: 2105dfe615dab4bac987efa86ea2a9e5,
     type: 3}
-  _renderer: {fileID: 1060731294}
+  renderer: {fileID: 1060731294}
 --- !u!4 &82137713
 Transform:
   m_ObjectHideFlags: 0
