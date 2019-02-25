@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using static GameManager;
+using static PlayerController;
 
 public class EnemyMoveScript : MonoBehaviour
 {
     private int _variation;
     private const float Speed = 0.05f;
+    private const float DamageC = 500;
 
     private void Awake()
     {
@@ -17,7 +19,17 @@ public class EnemyMoveScript : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(PlayerController.playerTransform.position);
+        transform.LookAt(playerTransform.position);
         transform.Translate(Vector3.forward * Dt * _variation * Speed);
+    }
+
+    private void OnCollisionEnter(Collision ot)
+    {
+        if (ot.gameObject.CompareTag("Player"))
+        {
+            PlayerInstance._playerHP -= (int) (DamageC / _variation);
+            Debug.Log((int) (DamageC / _variation));
+            Destroy(this.gameObject);
+        }
     }
 }

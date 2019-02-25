@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using UniRx;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.Timeline;
 using static GameManager;
 using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour
 {
+    public int _playerHP = 1000;
+
     private const float RotateSpeed = 200;
     private const int BulletLifeTime = 3;
 
@@ -17,8 +21,25 @@ public class PlayerController : MonoBehaviour
 
     public static Transform playerTransform;
 
+    private static PlayerController _playerInstance = null;
+
+
+    public static PlayerController PlayerInstance
+    {
+        get { return _playerInstance; }
+    }
+
     private void Awake()
     {
+        if (_playerInstance == null)
+        {
+            _playerInstance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+
         DontDestroyOnLoad(GameManager.Instance);
         _gameManager = GameManager.Instance;
 
@@ -34,6 +55,7 @@ public class PlayerController : MonoBehaviour
                 rotateT * Dt * RotateSpeed);
         });
     }
+
 
     private void ShootBullet(int n)
     {
