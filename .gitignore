@@ -12,7 +12,7 @@ Assets/AssetStoreTools*
 ExportedObj/
 .consulo/
 Logs
-*.idea
+.idea/
 *.csproj
 *.unityproj
 *.sln
