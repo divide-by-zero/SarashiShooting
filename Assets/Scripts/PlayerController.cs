@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.Timeline;
 using static GameManager;
@@ -11,15 +12,18 @@ using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour
 {
-    public int _playerHP = 1000;
+    public static Transform playerTransform;
+
+    public int playerHp = 1000;
 
     private const float RotateSpeed = 200;
     private const int BulletLifeTime = 3;
 
+    private AudioSource _pAudioSource;
+
     private GameManager _gameManager;
     [SerializeField] private ParticleSystem bullet;
 
-    public static Transform playerTransform;
 
     private static PlayerController _playerInstance = null;
 
@@ -54,6 +58,8 @@ public class PlayerController : MonoBehaviour
             transform.RotateAround(gameObject.transform.position, Vector3.up,
                 rotateT * Dt * RotateSpeed);
         });
+
+        _pAudioSource = GetComponent<AudioSource>();
     }
 
 
@@ -65,6 +71,7 @@ public class PlayerController : MonoBehaviour
             rotation);
         subBullet.emission.SetBurst(0, new ParticleSystem.Burst(0, n));
         Destroy(subBullet.gameObject, BulletLifeTime);
+        _pAudioSource.Play();
     }
 
     private void OnCollisionEnter(Collision ot)

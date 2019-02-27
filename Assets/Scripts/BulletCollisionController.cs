@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static GameManager;
 
-public class BulletCollisionContoroller : MonoBehaviour
+public class BulletCollisionController : MonoBehaviour
 {
     private void OnParticleCollision(GameObject ot)
     {
@@ -11,6 +11,7 @@ public class BulletCollisionContoroller : MonoBehaviour
         {
             shootingEnemyNum--;
             enemyNum--;
+
             Destroy(ot.gameObject);
         }
 

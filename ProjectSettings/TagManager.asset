@@ -7,6 +7,7 @@ TagManager:
   - MovingEnemy
   - ShootingEnemy
   - Item
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX

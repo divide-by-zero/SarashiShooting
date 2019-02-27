@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Async;
+using static PlayerController;
 
 
 public class GameManager : MonoBehaviour
@@ -11,6 +12,12 @@ public class GameManager : MonoBehaviour
     private const float MoveSpeed = 20;
 
     public static float Dt;
+
+    private void Start()
+    {
+        _isPlayerInstanceNotNull = PlayerInstance != null;
+    }
+
     public ReactiveProperty<int> clickProperty = new ReactiveProperty<int>(0);
 
     private Subject<int> _clickSubject = new Subject<int>();
@@ -20,10 +27,12 @@ public class GameManager : MonoBehaviour
     public static int bulletNum = 1;
     public static int shootingEnemyNum = 0;
     public static int enemyNum = 80;
+    public static int damageNum = 0;
 
     public static GameObject enemyBullet;
 
     private static GameManager _instance;
+    private bool _isPlayerInstanceNotNull;
 
     public static GameManager Instance
     {
@@ -62,26 +71,25 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         Dt = Time.deltaTime;
-        //what is Value???
-        //clickProperty.Value = (int) Input.GetAxisRaw("Fire1");
-        // Debug.Log((int) Input.GetAxisRaw("Fire1"));
-
-        if (Input.GetMouseButtonDown(0))
+        if (PlayerInstance != null)
         {
-            _clickSubject.OnNext(bulletNum);
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                _clickSubject.OnNext(bulletNum);
+            }
 
-        var subV = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        if (subV.magnitude > 0)
-        {
-            var speedSub = MoveSpeed * Dt;
-            _axisSubject.OnNext(subV * speedSub);
-        }
+            var subV = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            if (subV.magnitude > 0)
+            {
+                var speedSub = MoveSpeed * Dt;
+                _axisSubject.OnNext(subV * speedSub);
+            }
 
-        var mouseInputX = Input.GetAxis("Mouse X");
-        if (Mathf.Abs(mouseInputX) > 0)
-        {
-            _rotateSubject.OnNext(mouseInputX);
+            var mouseInputX = Input.GetAxis("Mouse X");
+            if (Mathf.Abs(mouseInputX) > 0)
+            {
+                _rotateSubject.OnNext(mouseInputX);
+            }
         }
     }
 
