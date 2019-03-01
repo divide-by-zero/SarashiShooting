@@ -122,6 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8fb6aa47b4144a39c350fcdf602226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyBullet: {fileID: 4321217809467846925, guid: 6fc1ec00418714d68a776cb97d9c3d26,
+    type: 3}
 --- !u!82 &3855300354062202384
 AudioSource:
   m_ObjectHideFlags: 0

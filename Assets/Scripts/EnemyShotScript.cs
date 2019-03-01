@@ -7,6 +7,9 @@ public class EnemyShotScript : MonoBehaviour
     private bool _flag = true;
     private AudioSource _au;
 
+    [SerializeField]
+    private GameObject enemyBullet;
+
     private void Start()
     {
         StartCoroutine(nameof(IntervalShot));
@@ -28,8 +31,7 @@ public class EnemyShotScript : MonoBehaviour
         var transform1 = transform;
         var rotation = transform1.rotation;
         var position = transform1.position;
-        var subBullet = Instantiate(GameManager.Instance.enemyBullet, position + rotation * Vector3.forward * 1.5f,
-            rotation);
+        var subBullet = Instantiate(enemyBullet, position + rotation * Vector3.forward * 1.5f,rotation);
         Destroy(subBullet.gameObject, 3);
         _au.volume = 200 / (PlayerController.playerTransform.position - position).magnitude;
         _au.Play();
