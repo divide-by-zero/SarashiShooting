@@ -6,9 +6,14 @@ public class EnemyBulletCollision : MonoBehaviour
 {
     private void OnParticleCollision(GameObject ot)
     {
-        if (ot.CompareTag("Player") && GameManager.Instance.bulletNum > 1)
+        if (ot.CompareTag("Player"))
         {
-            GameManager.Instance.bulletNum--;
+            var player = ot.GetComponent<PlayerController>();
+
+            if (player && player.bulletNum > 1)
+            {
+                player.bulletNum--;
+            }
         }
     }
 }

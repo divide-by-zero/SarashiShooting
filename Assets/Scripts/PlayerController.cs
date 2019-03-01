@@ -11,6 +11,8 @@ using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour
 {
+    private readonly float MoveSpeed = 20;
+
     public static Transform playerTransform;
 
     public int playerHp = 1000;
@@ -20,12 +22,13 @@ public class PlayerController : MonoBehaviour
 
     private AudioSource _pAudioSource;
 
+    public int bulletNum = 1;
+
     private GameManager _gameManager;
     [SerializeField] private ParticleSystem bullet;
 
 
     private static PlayerController _playerInstance = null;
-
 
     public static PlayerController PlayerInstance
     {
@@ -44,23 +47,32 @@ public class PlayerController : MonoBehaviour
         }
 
         DontDestroyOnLoad(GameManager.Instance);
-        _gameManager = GameManager.Instance;
 
         playerTransform = transform;
-
-        _gameManager.OnClicked.Subscribe(val => { ShootBullet(val); });
-
-        _gameManager.IsMoving.Subscribe(moveV => { transform.Translate(moveV); });
-
-        _gameManager.IsRotating.Subscribe(rotateT =>
-        {
-            transform.RotateAround(gameObject.transform.position, Vector3.up,
-                rotateT * Time.deltaTime * RotateSpeed);
-        });
 
         _pAudioSource = GetComponent<AudioSource>();
     }
 
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            ShootBullet(bulletNum);
+        }
+
+        var subV = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        if (subV.magnitude > 0)
+        {
+            var speedSub = MoveSpeed * Time.deltaTime;
+            transform.Translate(subV * speedSub);
+        }
+
+        var mouseInputX = Input.GetAxis("Mouse X");
+        if (Mathf.Abs(mouseInputX) > 0)
+        {
+            transform.RotateAround(gameObject.transform.position, Vector3.up,mouseInputX* Time.deltaTime * RotateSpeed);
+        }
+    }
 
     private void ShootBullet(int n)
     {
@@ -78,7 +90,7 @@ public class PlayerController : MonoBehaviour
         if (ot.gameObject.CompareTag("Item"))
         {
             Destroy(ot.gameObject);
-            GameManager.Instance.bulletNum++;
+            bulletNum++;
         }
     }
 }

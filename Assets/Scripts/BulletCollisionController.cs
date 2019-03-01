@@ -17,7 +17,7 @@ public class BulletCollisionController : MonoBehaviour
         if (ot.CompareTag("Item"))
         {
             Destroy(ot.gameObject);
-            GameManager.Instance.bulletNum++;
+//            GameManager.Instance.bulletNum++; //TODO 何してるのかよくわからないので、一旦保留
         }
     }
 }
