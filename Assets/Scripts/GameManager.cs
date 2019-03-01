@@ -11,29 +11,18 @@ public class GameManager : MonoBehaviour
 {
     private const float MoveSpeed = 20;
 
-    public static float Dt;
-
-    private void Start()
-    {
-        _isPlayerInstanceNotNull = PlayerInstance != null;
-    }
-
-    public ReactiveProperty<int> clickProperty = new ReactiveProperty<int>(0);
-
     private Subject<int> _clickSubject = new Subject<int>();
     private Subject<Vector3> _axisSubject = new Subject<Vector3>();
     private Subject<float> _rotateSubject = new Subject<float>();
 
-    public static int bulletNum = 1;
-    public static int shootingEnemyNum = 0;
-    public static int enemyNum = 80;
-    public static int damageNum = 0;
+    public int bulletNum = 1;
+    public int shootingEnemyNum = 0;
+    public int enemyNum = 80;
+    public int damageNum = 0;
 
-    public static GameObject enemyBullet;
+    public GameObject enemyBullet;
 
     private static GameManager _instance;
-    private bool _isPlayerInstanceNotNull;
-
     public static GameManager Instance
     {
         get
@@ -70,7 +59,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        Dt = Time.deltaTime;
         if (PlayerInstance != null)
         {
             if (Input.GetMouseButtonDown(0))

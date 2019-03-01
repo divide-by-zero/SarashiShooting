@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.Timeline;
-using static GameManager;
 using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour
@@ -56,7 +55,7 @@ public class PlayerController : MonoBehaviour
         _gameManager.IsRotating.Subscribe(rotateT =>
         {
             transform.RotateAround(gameObject.transform.position, Vector3.up,
-                rotateT * Dt * RotateSpeed);
+                rotateT * Time.deltaTime * RotateSpeed);
         });
 
         _pAudioSource = GetComponent<AudioSource>();
@@ -79,7 +78,7 @@ public class PlayerController : MonoBehaviour
         if (ot.gameObject.CompareTag("Item"))
         {
             Destroy(ot.gameObject);
-            bulletNum++;
+            GameManager.Instance.bulletNum++;
         }
     }
 }

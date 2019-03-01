@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static GameManager;
 
 public class EnemyGenerator : MonoBehaviour
 {
@@ -14,7 +13,7 @@ public class EnemyGenerator : MonoBehaviour
     private void Awake()
     {
         _width = renderer.bounds.size.x / 2;
-        for (var i = 0; i < enemyNum; i++)
+        for (var i = 0; i < GameManager.Instance.enemyNum; i++)
         {
             var roll = Random.Range(1, 3);
             var subPosition = new Vector3(Random.Range(-_width, _width), 10, Random.Range(-_width, _width));
@@ -25,7 +24,7 @@ public class EnemyGenerator : MonoBehaviour
                     Instantiate(movingEnemy, subPosition, Quaternion.identity);
                     break;
                 case 2:
-                    shootingEnemyNum++;
+                    GameManager.Instance.shootingEnemyNum++;
                     Instantiate(shootingEnemy, subPosition, Quaternion.identity);
                     break;
                 default:

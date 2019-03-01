@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static GameManager;
 
 public class EnemyShotScript : MonoBehaviour
 {
@@ -19,7 +18,7 @@ public class EnemyShotScript : MonoBehaviour
         while (_flag)
         {
             transform.LookAt(PlayerController.playerTransform.position);
-            yield return new WaitForSeconds(Instance.IntervalCulc() * Random.Range(0.8f, 1.4f));
+            yield return new WaitForSeconds(GameManager.Instance.IntervalCulc() * Random.Range(0.8f, 1.4f));
             ShotFunction();
         }
     }
@@ -29,7 +28,7 @@ public class EnemyShotScript : MonoBehaviour
         var transform1 = transform;
         var rotation = transform1.rotation;
         var position = transform1.position;
-        var subBullet = Instantiate(enemyBullet, position + rotation * Vector3.forward * 1.5f,
+        var subBullet = Instantiate(GameManager.Instance.enemyBullet, position + rotation * Vector3.forward * 1.5f,
             rotation);
         Destroy(subBullet.gameObject, 3);
         _au.volume = 200 / (PlayerController.playerTransform.position - position).magnitude;

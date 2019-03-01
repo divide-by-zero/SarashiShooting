@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static GameManager;
 using static PlayerController;
 using UnityEngine.SceneManagement;
 
@@ -27,7 +26,7 @@ public class EnemyMoveScript : MonoBehaviour
     private void Update()
     {
         transform.LookAt(playerTransform.position);
-        transform.Translate(Vector3.forward * Dt * _variation * Speed);
+        transform.Translate(Vector3.forward * Time.deltaTime * _variation * Speed);
     }
 
     private void OnCollisionEnter(Collision ot)
@@ -35,9 +34,9 @@ public class EnemyMoveScript : MonoBehaviour
         if (ot.gameObject.CompareTag("Player"))
         {
             _dAu.Play();
-            damageNum++;
-            enemyNum--;
-            if (enemyNum - shootingEnemyNum == 0)
+            GameManager.Instance.damageNum++;
+            GameManager.Instance.enemyNum--;
+            if (GameManager.Instance.enemyNum - GameManager.Instance.shootingEnemyNum == 0)
             {
                 SceneManager.LoadScene("Finish");
             }
@@ -54,8 +53,8 @@ public class EnemyMoveScript : MonoBehaviour
             _movingEnemyHP--;
             if (_movingEnemyHP < 1)
             {
-                enemyNum--;
-                if (enemyNum - shootingEnemyNum == 0)
+                GameManager.Instance.enemyNum--;
+                if (GameManager.Instance.enemyNum - GameManager.Instance.shootingEnemyNum == 0)
                 {
                     SceneManager.LoadScene("Finish");
                 }

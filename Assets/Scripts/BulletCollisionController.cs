@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static GameManager;
 
 public class BulletCollisionController : MonoBehaviour
 {
@@ -9,8 +8,8 @@ public class BulletCollisionController : MonoBehaviour
     {
         if (ot.CompareTag("ShootingEnemy"))
         {
-            shootingEnemyNum--;
-            enemyNum--;
+            GameManager.Instance.shootingEnemyNum--;
+            GameManager.Instance.enemyNum--;
 
             Destroy(ot.gameObject);
         }
@@ -18,7 +17,7 @@ public class BulletCollisionController : MonoBehaviour
         if (ot.CompareTag("Item"))
         {
             Destroy(ot.gameObject);
-            bulletNum++;
+            GameManager.Instance.bulletNum++;
         }
     }
 }
