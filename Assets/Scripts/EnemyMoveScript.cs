@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static PlayerController;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class EnemyMoveScript : MonoBehaviour
@@ -12,6 +9,7 @@ public class EnemyMoveScript : MonoBehaviour
     private int _movingEnemyHP;
     private Renderer _enemyRenderer;
     private AudioSource _dAu;
+    private GameObject _targetPlayer;
 
     private void Awake()
     {
@@ -23,10 +21,18 @@ public class EnemyMoveScript : MonoBehaviour
         _dAu = GetComponent<AudioSource>();
     }
 
+    public void Start()
+    {
+        _targetPlayer = GameObject.FindWithTag("Player");   //TODO 考えもの
+    }
+
     private void Update()
     {
-        transform.LookAt(playerTransform.position);
-        transform.Translate(Vector3.forward * Time.deltaTime * _variation * Speed);
+        if (_targetPlayer != null)
+        {
+            transform.LookAt(_targetPlayer.transform.position);
+            transform.Translate(Vector3.forward * Time.deltaTime * _variation * Speed);
+        }
     }
 
     private void OnCollisionEnter(Collision ot)
@@ -41,7 +47,11 @@ public class EnemyMoveScript : MonoBehaviour
                 SceneManager.LoadScene("Finish");
             }
 
-            PlayerInstance.playerHp -= (int) (DamageC / _variation);
+            var player = ot.gameObject.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.playerHp -= (int)(DamageC / _variation);
+            }
             Destroy(this.gameObject, 0.4f);
         }
     }

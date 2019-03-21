@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BulletCollisionController : MonoBehaviour
 {
+    public PlayerController _parentPlayer;
+
     private void OnParticleCollision(GameObject ot)
     {
         if (ot.CompareTag("ShootingEnemy"))
@@ -17,7 +19,10 @@ public class BulletCollisionController : MonoBehaviour
         if (ot.CompareTag("Item"))
         {
             Destroy(ot.gameObject);
-//            GameManager.Instance.bulletNum++; //TODO 何してるのかよくわからないので、一旦保留
+            if (_parentPlayer != null)
+            {
+                _parentPlayer.bulletNum++;
+            }
         }
     }
 }

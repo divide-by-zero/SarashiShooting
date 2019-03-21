@@ -4,23 +4,28 @@ using UnityEngine;
 
 public class EnemyShotScript : MonoBehaviour
 {
-    private bool _flag = true;
     private AudioSource _au;
 
     [SerializeField]
     private GameObject enemyBullet;
 
+    private GameObject _targetPlayer;
+
     private void Start()
     {
-        StartCoroutine(nameof(IntervalShot));
         _au = GetComponent<AudioSource>();
+        _targetPlayer = GameObject.FindWithTag("Player");   //TODO 考えもの
+        if (_targetPlayer != null)
+        {
+            StartCoroutine(nameof(IntervalShot));
+        }
     }
 
     private IEnumerator IntervalShot()
     {
-        while (_flag)
+        while (true)
         {
-            transform.LookAt(PlayerController.playerTransform.position);
+            transform.LookAt(_targetPlayer.transform.position);
             yield return new WaitForSeconds(GameManager.Instance.IntervalCulc() * Random.Range(0.8f, 1.4f));
             ShotFunction();
         }
@@ -28,17 +33,11 @@ public class EnemyShotScript : MonoBehaviour
 
     private void ShotFunction()
     {
-        var transform1 = transform;
-        var rotation = transform1.rotation;
-        var position = transform1.position;
+        var rotation = transform.rotation;
+        var position = transform.position;
         var subBullet = Instantiate(enemyBullet, position + rotation * Vector3.forward * 1.5f,rotation);
         Destroy(subBullet.gameObject, 3);
-        _au.volume = 200 / (PlayerController.playerTransform.position - position).magnitude;
+        _au.volume = 200 / (_targetPlayer.transform.position - position).magnitude;
         _au.Play();
-    }
-
-    private void OnDestroy()
-    {
-        _flag = false;
     }
 }

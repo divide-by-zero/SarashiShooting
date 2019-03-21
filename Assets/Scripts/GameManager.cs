@@ -5,12 +5,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private Text _leftEnemyLabel;
-
-    [SerializeField]
-    private Text _damageLabel;
-
     public int shootingEnemyNum = 0;
     public int enemyNum = 80;
     public int damageNum = 0;
@@ -30,21 +24,8 @@ public class GameManager : MonoBehaviour
                     _instance = obj.AddComponent<GameManager>();
                 }
             }
-
+            DontDestroyOnLoad(_instance);
             return _instance;
-        }
-    }
-
-    public void Start()
-    {
-        //enemyNumやdamageNumの変更を監視。　そのままTextへ流し込み
-        if (_leftEnemyLabel != null)
-        {
-            this.ObserveEveryValueChanged(manager => manager.enemyNum).SubscribeToText(_leftEnemyLabel);
-        }
-        if (_damageLabel != null)
-        {
-            this.ObserveEveryValueChanged(manager => manager.damageNum).SubscribeToText(_damageLabel);
         }
     }
 
